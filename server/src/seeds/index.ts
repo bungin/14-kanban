@@ -3,12 +3,10 @@ import { seedTickets } from './ticket-seeds.js';
 import { sequelize } from '../models/index.js';
 
 const seedAll = async (): Promise<void> => {
+  
   try {
-    await sequelize.query('DROP DATABASE IF EXISTS kanban_db;');
-    console.log('\n----- DATABASE DROPPED -----\n');
-
-    await sequelize.query('CREATE DATABASE kanban_db;');
-    console.log('\n----- DATABASE CREATED -----\n');
+    // await sequelize.query('CREATE DATABASE IF NOT EXISTS kanban_db;');
+    // console.log('\n----- DATABASE CREATED IF NOT EXISTS -----\n');
 
     await sequelize.sync({ force: true });
     console.log('\n----- DATABASE SYNCED -----\n');
