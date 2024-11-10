@@ -14,21 +14,22 @@ export const login = async (req: Request, res: Response) => {
     const user = await User.findOne({ where: { username } });
     
     if (!user) {
-      return res.status(404).json({ message: 'Auth failed' });
+      return res.status(404).json({ message: 'no user' });
     }
     
     const validPassword = await bcrypt.compare(password, user.password);
-    console.log("User or pass invalid");
+    console.log('valid pass?',validPassword)
     
     if (!validPassword) {
       console.log("User or pass invalid");
-      return res.status(404).json({ message: 'Auth failed' });
+      return res.status(404).json({ message: 'bad pass' });
     }
     
     const secretKey = process.env.JWT_SECRET_KEY || "";
     const token = jwt.sign({ username }, secretKey, { expiresIn: '2h' });
     
     console.log("User logged in: ", username);
+    console.log("Token: ", token);
     return res.json({ token });
   } catch (err) {
     console.log("User login error: ", err);

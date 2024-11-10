@@ -12,7 +12,7 @@ const login = async (userInfo: UserLogin) => {
     });
 
     const data = await response.json();
-
+    console.log("User logged in: ", data);
     if (!response.ok) {
       throw new Error("User info not retrieved, check network tab.");
     }
